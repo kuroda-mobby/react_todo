@@ -3,13 +3,24 @@ import "./styles.css";
 import styled from "styled-components";
 
 export const App = () => {
+  const [todoText, setTodoText] = useState('');
   const [incompleteTodos, setIncompleteTodos] = useState(['あああああ','いいいいい']);
   const [completeTodos, setCompleteTodos] = useState(['ううううう']);
+
+  const onChangeTodoText = (event) => setTodoText(event.target.value);
+
+  const onClickAdd = () => {
+    if (todoText === "") return;
+    const newTodos = [...incompleteTodos, todoText];
+    setIncompleteTodos(newTodos);
+    setTodoText("");
+  };
+
   return (
     <>
       <CInputarea>
-        <CInput placeholder="TODOを入力" />
-        <CButton>追加</CButton>
+        <CInput placeholder="TODOを入力" value={todoText} onChange={onChangeTodoText} />
+        <CButton onClick={onClickAdd}>追加</CButton>
       </CInputarea>
       <CIncompletearea>
         <CTitle>未完了のTODO</CTitle>
