@@ -16,6 +16,12 @@ export const App = () => {
     setTodoText("");
   };
 
+  const onClickDelete = (index) => {
+    const newTodos = [...incompleteTodos];
+    newTodos.splice(index, 1);
+    setIncompleteTodos(newTodos);
+  }
+
   return (
     <>
       <CInputarea>
@@ -25,12 +31,12 @@ export const App = () => {
       <CIncompletearea>
         <CTitle>未完了のTODO</CTitle>
         <ul>
-          {incompleteTodos.map((todo) => {
+          {incompleteTodos.map((todo, index) => {
             return (
               <CListrow key={todo}>
                 <CLi>{todo}</CLi>
                 <CButton>完了</CButton>
-                <CButton>削除</CButton>
+                <CButton onClick={() => onClickDelete(index)}>削除</CButton>
               </CListrow>
             );
           })}
