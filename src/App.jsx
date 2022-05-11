@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 export const App = () => {
   const [todoText, setTodoText] = useState('');
-  const [incompleteTodos, setIncompleteTodos] = useState(['あああああ','いいいいい']);
-  const [completeTodos, setCompleteTodos] = useState(['ううううう']);
+  const [incompleteTodos, setIncompleteTodos] = useState([]);
+  const [completeTodos, setCompleteTodos] = useState([]);
 
   const onChangeTodoText = (event) => setTodoText(event.target.value);
 
@@ -27,6 +27,15 @@ export const App = () => {
     newIncompleteTodos.splice(index, 1);
 
     const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos);
+  }
+
+  const onClickBack = (index) => {
+    const newCompleteTodos = [...completeTodos];
+    newCompleteTodos.splice(index, 1);
+
+    const newIncompleteTodos = [...incompleteTodos, completeTodos[index]];
     setIncompleteTodos(newIncompleteTodos);
     setCompleteTodos(newCompleteTodos);
   }
@@ -54,11 +63,11 @@ export const App = () => {
       <CCompletearea>
         <CTitle>完了のTODO</CTitle>
           <ul>
-            {completeTodos.map((todo) => {
+            {completeTodos.map((todo, index) => {
               return (
                 <CListrow key={todo}>
                   <CLi>{todo}</CLi>
-                  <CButton>戻す</CButton>
+                  <CButton onClick={() => onClickBack(index)}>戻す</CButton>
                 </CListrow>
               );
             })}
