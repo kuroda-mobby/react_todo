@@ -22,6 +22,15 @@ export const App = () => {
     setIncompleteTodos(newTodos);
   }
 
+  const onClickComplete = (index) => {
+    const newIncompleteTodos = [...incompleteTodos];
+    newIncompleteTodos.splice(index, 1);
+
+    const newCompleteTodos = [...completeTodos, incompleteTodos[index]];
+    setIncompleteTodos(newIncompleteTodos);
+    setCompleteTodos(newCompleteTodos);
+  }
+
   return (
     <>
       <CInputarea>
@@ -35,7 +44,7 @@ export const App = () => {
             return (
               <CListrow key={todo}>
                 <CLi>{todo}</CLi>
-                <CButton>完了</CButton>
+                <CButton onClick={() => onClickComplete(index)}>完了</CButton>
                 <CButton onClick={() => onClickDelete(index)}>削除</CButton>
               </CListrow>
             );
